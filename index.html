@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dywan Learning Center — Bimbingan Belajar Modern</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2d6a4f;
+            --primary-dark: #1b4332;
+            --secondary: #d97706;
+            --accent: #f59e0b;
+            --bg-light: #f8fafc;
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+            --white: #ffffff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+        html { scroll-behavior: smooth; }
+        body { background-color: var(--bg-light); color: var(--text-dark); line-height: 1.6; }
+        a { text-decoration: none; color: inherit; }
+
+        /* Top Bar */
+        .top-bar { background-color: var(--primary-dark); color: var(--white); font-size: 0.8rem; padding: 8px 5%; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 5px; }
+        .top-bar-info span { margin-right: 15px; display: inline-flex; align-items: center; gap: 5px; }
+
+        /* Header & Nav */
+        header { background-color: var(--white); box-shadow: 0 2px 10px rgba(0,0,0,0.08); position: sticky; top: 0; z-index: 1000; }
+        .navbar { display: flex; justify-content: space-between; align-items: center; padding: 12px 5%; position: relative; }
+        .logo-text h1 { font-size: 1.2rem; color: var(--primary-dark); font-weight: 800; line-height: 1.1; }
+        .logo-text p { font-size: 0.7rem; color: var(--secondary); font-weight: 700; letter-spacing: 1px; }
+
+        /* Mobile Menu Toggle Button */
+        .menu-toggle { display: none; background: none; border: none; font-size: 1.5rem; color: var(--primary-dark); cursor: pointer; }
+
+        .nav-menu { display: flex; list-style: none; gap: 20px; align-items: center; }
+        .nav-menu a { font-weight: 600; font-size: 0.95rem; color: var(--text-dark); transition: 0.3s; }
+        .nav-menu a:hover { color: var(--primary); }
+        .btn-wa-nav { background: #25d366; color: var(--white) !important; padding: 8px 18px; border-radius: 20px; font-weight: 700 !important; display: inline-flex; align-items: center; gap: 8px; }
+
+        /* Hero Banner */
+        .hero { background: linear-gradient(rgba(27, 67, 50, 0.88), rgba(45, 106, 79, 0.9)), url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1200') center/cover; color: var(--white); text-align: center; padding: 60px 20px; }
+        .hero h2 { font-size: 2rem; margin-bottom: 12px; font-weight: 800; }
+        .hero p { font-size: 1rem; max-width: 700px; margin: 0 auto 25px; opacity: 0.95; }
+        .hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+        .btn { padding: 12px 24px; border-radius: 8px; font-weight: 700; transition: 0.3s; display: inline-block; width: 100%; max-width: 250px; }
+        .btn-primary { background: var(--secondary); color: var(--white); }
+        .btn-outline { border: 2px solid var(--white); color: var(--white); }
+
+        /* Container Sections */
+        .section { padding: 45px 5%; }
+        .section-title { text-align: center; margin-bottom: 30px; }
+        .section-title h2 { font-size: 1.75rem; color: var(--primary-dark); font-weight: 800; }
+        .section-title p { color: var(--text-muted); font-size: 0.95rem; }
+
+        /* Metode Belajar */
+        .metode-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 15px; }
+        .metode-card { background: var(--white); padding: 20px; border-radius: 12px; border-left: 5px solid var(--secondary); box-shadow: 0 4px 15px rgba(0,0,0,0.04); }
+        .metode-num { background: var(--secondary); color: var(--white); width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; margin-bottom: 12px; }
+        .metode-card h3 { color: var(--primary-dark); margin-bottom: 8px; }
+
+        /* Mentors & Materi Grid */
+        .two-col-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .info-box { background: var(--white); padding: 22px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.04); }
+        .info-box h3 { color: var(--primary-dark); margin-bottom: 15px; border-bottom: 2px solid var(--bg-light); padding-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+        .mentor-list li { list-style: none; margin-bottom: 10px; font-weight: 600; display: flex; align-items: center; gap: 8px; font-size: 0.95rem; }
+        .mentor-list i { color: var(--secondary); }
+        .materi-badge { background: #e2e8f0; color: var(--text-dark); padding: 4px 10px; border-radius: 6px; font-size: 0.8rem; font-weight: 600; margin-right: 4px; display: inline-block; margin-top: 6px; }
+
+        /* Sesi Belajar Cards */
+        .sesi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; }
+        .sesi-card { background: var(--white); border-radius: 10px; padding: 18px; border-top: 4px solid var(--primary); box-shadow: 0 4px 10px rgba(0,0,0,0.04); }
+        .sesi-card h4 { color: var(--primary-dark); font-size: 1rem; margin-bottom: 6px; }
+        .sesi-time { color: var(--secondary); font-weight: 700; font-size: 0.85rem; margin-bottom: 4px; }
+        .sesi-days { font-size: 0.8rem; color: var(--text-muted); font-weight: 600; }
+
+        /* Biaya Box */
+        .biaya-box { background: var(--primary-dark); color: var(--white); border-radius: 12px; padding: 25px 15px; margin-top: 25px; text-align: center; }
+        .biaya-grid { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin: 15px 0; }
+        .biaya-item h4 { font-size: 0.9rem; opacity: 0.9; }
+        .biaya-item p { font-size: 1.5rem; font-weight: 800; color: #facc15; }
+
+        /* Facilities */
+        .facility-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-top: 15px; }
+        .facility-item { background: #ecfdf5; border: 1px solid #a7f3d0; color: var(--primary-dark); padding: 12px; border-radius: 8px; font-weight: 700; text-align: center; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 0.9rem; }
+
+        /* Floating WhatsApp Button (Mobile) */
+        .float-wa { position: fixed; width: 55px; height: 55px; bottom: 20px; right: 20px; background-color: #25d366; color: #FFF; border-radius: 50px; text-align: center; font-size: 30px; box-shadow: 2px 2px 10px rgba(0,0,0,0.2); z-index: 9999; display: grid; place-items: center; }
+
+        /* Footer */
+        footer { background: #0f172a; color: var(--white); padding: 30px 5% 20px; margin-top: 40px; text-align: center; }
+        footer p { font-size: 0.85rem; color: #94a3b8; }
+
+        /* Responsive Mobile Styles */
+        @media(max-width: 768px) {
+            .menu-toggle { display: block; }
+            .nav-menu { display: none; position: absolute; top: 100%; left: 0; width: 100%; background: var(--white); flex-direction: column; padding: 20px; box-shadow: 0 10px 15px rgba(0,0,0,0.1); gap: 15px; text-align: center; }
+            .nav-menu.active { display: flex; }
+            .top-bar { justify-content: center; text-align: center; }
+            .top-bar-info { margin-bottom: 3px; }
+            .hero h2 { font-size: 1.6rem; }
+            .hero p { font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Floating WA Button untuk Mobile -->
+    <a href="https://wa.me/628886689320?text=Halo%20Dywan%20Learning%20Center,%20saya%20ingin%20mendaftar%20bimbel" class="float-wa" target="_blank" title="Chat WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="top-bar-info">
+            <span><i class="fab fa-whatsapp"></i> 0888 6689 320</span>
+            <span><i class="fas fa-map-marker-alt"></i> Kp Kalikan Kedungjati</span>
+        </div>
+        <div>
+            <span><i class="fas fa-clock"></i> 12x Pertemuan / Bulan</span>
+        </div>
+    </div>
+
+    <!-- Header & Nav -->
+    <header>
+        <div class="navbar">
+            <div class="logo">
+                <div class="logo-text">
+                    <h1>DYWAN LEARNING CENTER</h1>
+                    <p>BIMBINGAN BELAJAR BERKUALITAS</p>
+                </div>
+            </div>
+            <button class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle Navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#metode" onclick="toggleMenu()">Metode</a></li>
+                <li><a href="#mentor" onclick="toggleMenu()">Mentor & Materi</a></li>
+                <li><a href="#jadwal" onclick="toggleMenu()">Sesi Belajar</a></li>
+                <li><a href="#fasilitas" onclick="toggleMenu()">Fasilitas</a></li>
+                <li><a href="https://wa.me/628886689320?text=Halo%20Dywan%20Learning%20Center,%20saya%20ingin%20mendaftar%20bimbel" target="_blank" class="btn-wa-nav"><i class="fab fa-whatsapp"></i> Hubungi Kami</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Hero Banner -->
+    <section class="hero">
+        <h2>Metode Belajar I Do – We Do – You Do</h2>
+        <p>Dywan Learning Center menerapkan metode pembelajaran bertahap agar setiap siswa memahami konsep secara mendalam, bukan sekadar menghafal.</p>
+        <div class="hero-btns">
+            <a href="https://wa.me/628886689320?text=Halo%20Dywan%20Learning%20Center,%20saya%20ingin%20tanya%20informasi%20pendaftaran" target="_blank" class="btn btn-primary">Daftar Sekarang</a>
+            <a href="#jadwal" class="btn btn-outline">Lihat Jadwal Sesi</a>
+        </div>
+    </section>
+
+    <!-- Metode Belajar Section -->
+    <section class="section" id="metode">
+        <div class="section-title">
+            <h2>Apa Itu I Do – We Do – You Do?</h2>
+            <p>3 Langkah sistematis untuk membangun pemahaman dan rasa percaya diri siswa</p>
+        </div>
+        <div class="metode-grid">
+            <div class="metode-card">
+                <div class="metode-num">01</div>
+                <h3>I Do</h3>
+                <p>Pengajar memberikan contoh dan menjelaskan langkah penyelesaian soal secara lengkap dan jelas.</p>
+            </div>
+            <div class="metode-card">
+                <div class="metode-num">02</div>
+                <h3>We Do</h3>
+                <p>Pengajar dan siswa mengerjakan contoh soal serupa secara bersama-sama dengan bimbingan langsung.</p>
+            </div>
+            <div class="metode-card">
+                <div class="metode-num">03</div>
+                <h3>You Do</h3>
+                <p>Siswa menyelesaikan soal secara mandiri untuk mengukur pemahaman dan membangun rasa percaya diri.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mentor & Materi Section -->
+    <section class="section" id="mentor" style="background:#f1f5f9;">
+        <div class="section-title">
+            <h2>Why Choose Us?</h2>
+            <p>Pengajar profesional dan materi terstruktur sesuai jenjang sekolah</p>
+        </div>
+        <div class="two-col-grid">
+            <!-- Tim Mentor -->
+            <div class="info-box">
+                <h3><i class="fas fa-user-graduate"></i> Tim Mentor Pengajar</h3>
+                <ul class="mentor-list">
+                    <li><i class="fas fa-check-circle"></i> Bravura Auriga Dywan, S.Kom. Gr</li>
+                    <li><i class="fas fa-check-circle"></i> Almahida Aureola Dywan, S.Pd. Gr</li>
+                    <li><i class="fas fa-check-circle"></i> Adil Aurora Dywan, S.Pd.</li>
+                </ul>
+            </div>
+            <!-- Materi Pelajaran -->
+            <div class="info-box">
+                <h3><i class="fas fa-book-open"></i> Materi Pelajaran</h3>
+                <h4 style="margin-top:8px; color:var(--primary); font-size:0.95rem;">Jenjang SD:</h4>
+                <span class="materi-badge">Matematika</span>
+                <span class="materi-badge">Bahasa Inggris</span>
+                <span class="materi-badge">TKA Matematika (Khusus Kelas 6)</span>
+
+                <h4 style="margin-top:12px; color:var(--primary); font-size:0.95rem;">Jenjang SMP:</h4>
+                <span class="materi-badge">Matematika</span>
+                <span class="materi-badge">Fisika</span>
+                <span class="materi-badge">TKA Matematika (Khusus Kelas 9)</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sesi Belajar & Biaya -->
+    <section class="section" id="jadwal">
+        <div class="section-title">
+            <h2>Jadwal Sesi Belajar</h2>
+            <p>12x Pertemuan / Bulan (Maksimal 6 Siswa / Sesi)</p>
+        </div>
+        <div class="sesi-grid">
+            <div class="sesi-card">
+                <h4>SD KELAS 1</h4>
+                <div class="sesi-days">SENIN - RABU - JUM'AT</div>
+                <div class="sesi-time"><i class="far fa-clock"></i> JAM 13.00 - 14.00</div>
+            </div>
+            <div class="sesi-card">
+                <h4>SD KELAS 2</h4>
+                <div class="sesi-days">SELASA - KAMIS - SABTU</div>
+                <div class="sesi-time"><i class="far fa-clock"></i> JAM 13.00 - 14.00</div>
+            </div>
+            <div class="sesi-card">
+                <h4>SD KELAS 3</h4>
+                <div class="sesi-days">SENIN - RABU - JUM'AT</div>
+                <div class="sesi-time"><i class="far fa-clock"></i> JAM 14.00 - 15.00</div>
+            </div>
+            <div class="sesi-card">
+                <h4>SD KELAS 4</h4>
+                <div class="sesi-days">SELASA - KAMIS - SABTU</div>
+                <div class="sesi-time"><i class="far fa-clock"></i> JAM 14.00 - 15.00</div>
+            </div>
+            <div class="sesi-card">
+                <h4>SD KELAS 5</h4>
+                <div class="sesi-days">SENIN - RABU - JUM'AT</div>
+                <div class="sesi-time"><i class="far fa-clock"></i> JAM 15.00 - 16.00</div>
+            </div>
+            <div class="sesi-card">
+                <h4>SD KELAS 6</h4>
+                <div class="sesi-days">SELASA - KAMIS - SABTU</div>
+                <div class="sesi-time"><i class="far fa-clock"></i> JAM 15.00 - 16.00</div>
+            </div>
+            <div class="sesi-card" style="border-top-color: var(--secondary);">
+                <h4>SMP (Grup A)</h4>
+                <div class="sesi-days">SENIN - RABU - JUM'AT</div>
+                <div class="sesi-time"><i class="far fa-clock"></i> JAM 16.00 - 17.00</div>
+            </div>
+            <div class="sesi-card" style="border-top-color: var(--secondary);">
+                <h4>SMP (Grup B)</h4>
+                <div class="sesi-days">SELASA - KAMIS - SABTU</div>
+                <div class="sesi-time"><i class="far fa-clock"></i> JAM 16.00 - 17.00</div>
+            </div>
+        </div>
+
+        <!-- Biaya Administrasi -->
+        <div class="biaya-box">
+            <h3>Biaya Administrasi Belajar</h3>
+            <div class="biaya-grid">
+                <div class="biaya-item">
+                    <h4>JENJANG SD</h4>
+                    <p>Rp 100.000 / Bln</p>
+                </div>
+                <div class="biaya-item">
+                    <h4>JENJANG SMP</h4>
+                    <p>Rp 150.000 / Bln</p>
+                </div>
+            </div>
+            <p style="font-size: 0.8rem; opacity: 0.85;"><i class="fas fa-info-circle"></i> Setiap sesi dibatasi maksimal berisi 6 siswa.</p>
+        </div>
+    </section>
+
+    <!-- Additional Facilities -->
+    <section class="section" id="fasilitas" style="background:#f8fafc;">
+        <div class="section-title">
+            <h2>Additional Facilities</h2>
+            <p>Fasilitas tambahan gratis untuk seluruh siswa</p>
+        </div>
+        <div class="facility-list">
+            <div class="facility-item"><i class="fas fa-check-circle"></i> Bimbingan Tugas Sekolah</div>
+            <div class="facility-item"><i class="fas fa-check-circle"></i> Bedah Kisi-Kisi Ujian</div>
+            <div class="facility-item"><i class="fas fa-check-circle"></i> Latihan Soal Berbasis Kisi-Kisi</div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p><strong>Dywan Learning Center</strong></p>
+        <p style="margin-top:4px;">Kp Kalikan RT 03 RW 05 Desa Kedungjati</p>
+        <p style="margin-top:4px;">Hubungi: 0888 6689 320 (Bravura)</p>
+        <p style="margin-top:15px; font-size:0.75rem;">&copy; 2026 Dywan Learning Center.</p>
+    </footer>
+
+    <!-- Script JavaScript Dinamis -->
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('navMenu');
+            menu.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
