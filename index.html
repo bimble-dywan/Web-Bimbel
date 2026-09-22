@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dywan Learning Center — Bimbingan Belajar Modern</title>
+    
+    <!-- Meta Tag SEO & Preview WhatsApp / Social Media -->
+    <meta name="description" content="Dywan Learning Center — Bimbingan belajar SD & SMP berbasis metode I Do – We Do – You Do dan Game Matematika Interaktif di Kedungjati.">
+    <meta property="og:title" content="Dywan Learning Center — Bimbingan Belajar Modern">
+    <meta property="og:description" content="Bimbel Matematika, Fisika, & B. Inggris SD-SMP dengan kelompok kecil (maksimal 6 siswa) dan metode interaktif.">
+    <meta property="og:image" content="les1.jpeg">
+    <meta property="og:type" content="website">
+
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
@@ -101,8 +109,21 @@
         .facility-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-top: 15px; }
         .facility-item { background: #ecfdf5; border: 1px solid #a7f3d0; color: var(--primary-dark); padding: 12px; border-radius: 8px; font-weight: 700; text-align: center; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 0.9rem; }
 
-        /* Floating WhatsApp Button */
-        .float-wa { position: fixed; width: 55px; height: 55px; bottom: 20px; right: 20px; background-color: #25d366; color: #FFF; border-radius: 50px; text-align: center; font-size: 30px; box-shadow: 2px 2px 10px rgba(0,0,0,0.2); z-index: 9999; display: grid; place-items: center; }
+        /* Style Section FAQ Accordion */
+        .faq-container { max-width: 800px; margin: 0 auto; }
+        .faq-item { background: var(--white); border-radius: 8px; margin-bottom: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); overflow: hidden; }
+        .faq-question { padding: 16px 20px; background: var(--white); color: var(--primary-dark); font-weight: 700; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: 0.3s; }
+        .faq-question:hover { background: #f8fafc; }
+        .faq-answer { padding: 0 20px; max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease; color: var(--text-muted); font-size: 0.9rem; }
+        .faq-item.active .faq-answer { padding: 0 20px 16px 20px; max-height: 200px; }
+        .faq-item.active .faq-question i { transform: rotate(180deg); }
+
+        /* Floating Buttons (WA & Back to Top) */
+        .float-btns { position: fixed; bottom: 20px; right: 20px; display: flex; flex-direction: column; gap: 10px; z-index: 9999; }
+        .float-btn { width: 50px; height: 50px; border-radius: 50%; text-align: center; font-size: 24px; box-shadow: 2px 2px 10px rgba(0,0,0,0.2); display: grid; place-items: center; transition: 0.3s; cursor: pointer; border: none; }
+        .float-wa { background-color: #25d366; color: #FFF; }
+        .float-top { background-color: var(--primary-dark); color: #FFF; opacity: 0; visibility: hidden; }
+        .float-top.show { opacity: 1; visibility: visible; }
 
         /* Footer */
         footer { background: #0f172a; color: var(--white); padding: 30px 5% 20px; margin-top: 40px; text-align: center; }
@@ -120,9 +141,15 @@
 </head>
 <body>
 
-    <a href="https://wa.me/628886689320?text=Halo%20Dywan%20Learning%20Center,%20saya%20ingin%20mendaftar%20bimbel" class="float-wa" target="_blank" title="Chat WhatsApp">
-        <i class="fab fa-whatsapp"></i>
-    </a>
+    <!-- Floating Action Buttons (WA + Back to Top) -->
+    <div class="float-btns">
+        <button class="float-btn float-top" id="btnBackToTop" onclick="scrollToTop()" title="Kembali ke Atas">
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        <a href="https://wa.me/628886689320?text=Halo%20Dywan%20Learning%20Center,%20saya%20ingin%20mendaftar%20bimbel" class="float-btn float-wa" target="_blank" title="Chat WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
 
     <div class="top-bar">
         <div class="top-bar-info">
@@ -151,6 +178,7 @@
                 <li><a href="#jadwal" onclick="toggleMenu()">Sesi Belajar</a></li>
                 <li><a href="#galeri" onclick="toggleMenu()">Galeri</a></li>
                 <li><a href="#fasilitas" onclick="toggleMenu()">Fasilitas</a></li>
+                <li><a href="#faq" onclick="toggleMenu()">FAQ</a></li>
                 <li><a href="https://wa.me/628886689320?text=Halo%20Dywan%20Learning%20Center,%20saya%20ingin%20mendaftar%20bimbel" target="_blank" class="btn-wa-nav"><i class="fab fa-whatsapp"></i> Hubungi Kami</a></li>
             </ul>
         </div>
@@ -336,6 +364,43 @@
         </div>
     </section>
 
+    <!-- Section FAQ (Pertanyaan Umum) -->
+    <section class="section" id="faq" style="background:#f1f5f9;">
+        <div class="section-title">
+            <h2>Pertanyaan Sering Diajukan (FAQ)</h2>
+            <p>Informasi seputar pendaftaran dan kegiatan bimbingan belajar</p>
+        </div>
+        <div class="faq-container">
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Berapa jumlah maksimal siswa dalam satu kelas?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Setiap kelas dibatasi maksimal 6 siswa saja agar pengajar dapat fokus memberikan bimbingan secara intensif kepada tiap anak.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Apakah ada sesi uji coba (trial) gratis?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Ya, kami menyediakan sesi konsultasi dan pengenalan metode belajar gratis sebelum orang tua memutuskan untuk mendaftar.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Bagaimana jika siswa berhalangan hadir pada jadwalnya?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Siswa dapat mengikuti kelas pengganti (makeup class) pada hari lain dengan melakukan konfirmasi terlebih dahulu kepada pengajar.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <footer>
         <p><strong>Dywan Learning Center</strong></p>
         <p style="margin-top:4px;">Kp Kalikan RT 03 RW 05 Desa Kedungjati</p>
@@ -364,6 +429,26 @@
                     card.classList.add('hide');
                 }
             });
+        }
+
+        // Fungsi Accordion FAQ
+        function toggleFaq(element) {
+            const parent = element.parentElement;
+            parent.classList.toggle('active');
+        }
+
+        // Fungsi Scroll Back To Top
+        const btnTop = document.getElementById('btnBackToTop');
+        window.onscroll = function() {
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                btnTop.classList.add('show');
+            } else {
+                btnTop.classList.remove('show');
+            }
+        };
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     </script>
 </body>
