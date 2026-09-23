@@ -18,7 +18,6 @@
             --primary: #2d6a4f;
             --primary-dark: #1b4332;
             --secondary: #d97706;
-            --accent: #f59e0b;
             --bg-light: #f8fafc;
             --text-dark: #1e293b;
             --text-muted: #64748b;
@@ -45,6 +44,28 @@
         .nav-menu a { font-weight: 600; font-size: 0.95rem; color: var(--text-dark); transition: 0.3s; }
         .nav-menu a:hover { color: var(--primary); }
         .btn-wa-nav { background: #25d366; color: var(--white) !important; padding: 8px 18px; border-radius: 20px; font-weight: 700 !important; display: inline-flex; align-items: center; gap: 8px; }
+
+        /* Dropdown Kurikulum */
+        .nav-dropdown { position: relative; }
+        .dropdown-toggle { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; background: none; border: none; font-family: inherit; }
+        .dropdown-toggle i { font-size: 0.65rem; transition: 0.3s; }
+        .nav-dropdown.open .dropdown-toggle i { transform: rotate(180deg); }
+        .dropdown-menu { list-style: none; }
+        .dropdown-menu a { font-weight: 600; }
+        .dropdown-menu a.disabled { color: var(--text-muted) !important; cursor: not-allowed; }
+        .dropdown-menu a.disabled small { display: block; font-weight: 600; font-size: 0.7rem; color: var(--secondary); }
+
+        @media(min-width: 769px) {
+            .dropdown-menu { display: none; position: absolute; top: 130%; left: 50%; transform: translateX(-50%); background: var(--white); border-radius: 10px; box-shadow: 0 8px 25px rgba(0,0,0,0.12); min-width: 210px; padding: 8px 0; z-index: 1001; }
+            .nav-dropdown.open .dropdown-menu { display: block; }
+            .dropdown-menu li a { display: block; padding: 10px 18px; font-size: 0.9rem; }
+            .dropdown-menu li a:hover:not(.disabled) { background: var(--bg-light); }
+        }
+        @media(max-width: 768px) {
+            .dropdown-menu { display: none; padding: 6px 0 0 0; }
+            .nav-dropdown.open .dropdown-menu { display: block; }
+            .dropdown-menu li a { display: block; padding: 8px 0; font-size: 0.9rem; }
+        }
 
         /* Hero Banner */
         .hero { background: linear-gradient(rgba(27, 67, 50, 0.88), rgba(45, 106, 79, 0.9)), url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1200') center/cover; color: var(--white); text-align: center; padding: 60px 20px; }
@@ -128,6 +149,15 @@
         /* Footer */
         footer { background: #0f172a; color: var(--white); padding: 30px 5% 20px; margin-top: 40px; text-align: center; }
         footer p { font-size: 0.85rem; color: #94a3b8; }
+        footer .footer-spaced { margin-top: 4px; }
+        footer .footer-copyright { margin-top: 15px; font-size: 0.75rem; }
+
+        /* Utility classes (replaces one-off inline styles) */
+        .section-alt { background: #f1f5f9; }
+        .materi-subtitle { margin-top: 8px; color: var(--primary); font-size: 0.95rem; }
+        .materi-subtitle.spaced { margin-top: 12px; }
+        .sesi-card.smp-card { border-top-color: var(--secondary); }
+        .biaya-note { font-size: 0.8rem; opacity: 0.85; }
 
         @media(max-width: 768px) {
             .menu-toggle { display: block; }
@@ -146,7 +176,7 @@
         <button class="float-btn float-top" id="btnBackToTop" onclick="scrollToTop()" title="Kembali ke Atas">
             <i class="fas fa-arrow-up"></i>
         </button>
-        <a href="https://wa.me/628886689320?text=Halo%20Dywan%20Learning%20Center,%20saya%20ingin%20mendaftar%20bimbel" class="float-btn float-wa" target="_blank" title="Chat WhatsApp">
+        <a href="https://wa.me/628886689320?text=Halo%20Dywan%20Learning%20Center,%20saya%20ingin%20mendaftar%20bimbel" class="float-btn float-wa" target="_blank" rel="noopener noreferrer" title="Chat WhatsApp">
             <i class="fab fa-whatsapp"></i>
         </a>
     </div>
@@ -175,11 +205,19 @@
             <ul class="nav-menu" id="navMenu">
                 <li><a href="#metode" onclick="toggleMenu()">Metode</a></li>
                 <li><a href="#mentor" onclick="toggleMenu()">Mentor & Materi</a></li>
+                <li class="nav-dropdown" id="kurikulumDropdown">
+                    <a href="#" class="dropdown-toggle" onclick="toggleDropdown(event)">Kurikulum <i class="fas fa-chevron-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="https://bimble-dywan.github.io/KK-Rendah/" target="_blank" rel="noopener noreferrer" onclick="toggleMenu()"><i class="fas fa-book"></i> SD Kelas 1 – 3</a></li>
+                        <li><a href="https://bimble-dywan.github.io/KK-Atas/" target="_blank" rel="noopener noreferrer" onclick="toggleMenu()"><i class="fas fa-book"></i> SD Kelas 4 – 6</a></li>
+                        <li><a href="#" class="disabled" onclick="return false;"><i class="fas fa-book"></i> SMP <small>Segera Hadir</small></a></li>
+                    </ul>
+                </li>
                 <li><a href="#jadwal" onclick="toggleMenu()">Sesi Belajar</a></li>
                 <li><a href="#galeri" onclick="toggleMenu()">Galeri</a></li>
                 <li><a href="#fasilitas" onclick="toggleMenu()">Fasilitas</a></li>
                 <li><a href="#faq" onclick="toggleMenu()">FAQ</a></li>
-                <li><a href="https://wa.me/628886689320?text=Halo%20Dywan%20Learning%20Center,%20saya%20ingin%20mendaftar%20bimbel" target="_blank" class="btn-wa-nav"><i class="fab fa-whatsapp"></i> Hubungi Kami</a></li>
+                <li><a href="https://wa.me/628886689320?text=Halo%20Dywan%20Learning%20Center,%20saya%20ingin%20mendaftar%20bimbel" target="_blank" rel="noopener noreferrer" class="btn-wa-nav" onclick="toggleMenu()"><i class="fab fa-whatsapp"></i> Hubungi Kami</a></li>
             </ul>
         </div>
     </header>
@@ -188,8 +226,8 @@
         <h2>Metode Belajar I Do – We Do – You Do</h2>
         <p>Dywan Learning Center menerapkan metode pembelajaran bertahap agar setiap siswa memahami konsep secara mendalam, bukan sekadar menghafal.</p>
         <div class="hero-btns">
-            <a href="https://wa.me/628886689320?text=Halo%20Dywan%20Learning%20Center,%20saya%20ingin%20tanya%20informasi%20pendaftaran" target="_blank" class="btn btn-primary">Daftar Sekarang</a>
-            <a href="https://bimble-dywan.github.io/dywan-math-game/" target="_blank" class="btn btn-game"><i class="fas fa-gamepad"></i> Coba Game Interaktif</a>
+            <a href="https://wa.me/628886689320?text=Halo%20Dywan%20Learning%20Center,%20saya%20ingin%20tanya%20informasi%20pendaftaran" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Daftar Sekarang</a>
+            <a href="https://bimble-dywan.github.io/dywan-math-game/" target="_blank" rel="noopener noreferrer" class="btn btn-game"><i class="fas fa-gamepad"></i> Coba Game Interaktif</a>
             <a href="#jadwal" class="btn btn-outline">Lihat Jadwal Sesi</a>
         </div>
     </section>
@@ -218,7 +256,7 @@
         </div>
     </section>
 
-    <section class="section" id="mentor" style="background:#f1f5f9;">
+    <section class="section section-alt" id="mentor">
         <div class="section-title">
             <h2>Why Choose Us?</h2>
             <p>Pengajar profesional dan materi terstruktur sesuai jenjang sekolah</p>
@@ -234,12 +272,12 @@
             </div>
             <div class="info-box">
                 <h3><i class="fas fa-book-open"></i> Materi Pelajaran</h3>
-                <h4 style="margin-top:8px; color:var(--primary); font-size:0.95rem;">Jenjang SD:</h4>
+                <h4 class="materi-subtitle">Jenjang SD:</h4>
                 <span class="materi-badge">Matematika</span>
                 <span class="materi-badge">Bahasa Inggris</span>
                 <span class="materi-badge">TKA Matematika (Khusus Kelas 6)</span>
 
-                <h4 style="margin-top:12px; color:var(--primary); font-size:0.95rem;">Jenjang SMP:</h4>
+                <h4 class="materi-subtitle spaced">Jenjang SMP:</h4>
                 <span class="materi-badge">Matematika</span>
                 <span class="materi-badge">Fisika</span>
                 <span class="materi-badge">TKA Matematika (Khusus Kelas 9)</span>
@@ -256,10 +294,10 @@
 
         <!-- Filter Tab Buttons -->
         <div class="filter-container">
-            <button class="filter-btn active" onclick="filterJadwal('all')">Semua Jenjang</button>
-            <button class="filter-btn" onclick="filterJadwal('sd-rendah')">SD Kelas 1 - 3</button>
-            <button class="filter-btn" onclick="filterJadwal('sd-tinggi')">SD Kelas 4 - 6</button>
-            <button class="filter-btn" onclick="filterJadwal('smp')">SMP</button>
+            <button class="filter-btn active" onclick="filterJadwal(event, 'all')">Semua Jenjang</button>
+            <button class="filter-btn" onclick="filterJadwal(event, 'sd-rendah')">SD Kelas 1 - 3</button>
+            <button class="filter-btn" onclick="filterJadwal(event, 'sd-tinggi')">SD Kelas 4 - 6</button>
+            <button class="filter-btn" onclick="filterJadwal(event, 'smp')">SMP</button>
         </div>
 
         <div class="sesi-grid">
@@ -293,12 +331,12 @@
                 <div class="sesi-days">SELASA - KAMIS - SABTU</div>
                 <div class="sesi-time"><i class="far fa-clock"></i> JAM 15.00 - 16.00</div>
             </div>
-            <div class="sesi-card" data-category="smp" style="border-top-color: var(--secondary);">
+            <div class="sesi-card smp-card" data-category="smp">
                 <h4>SMP (Grup A)</h4>
                 <div class="sesi-days">SENIN - RABU - JUM'AT</div>
                 <div class="sesi-time"><i class="far fa-clock"></i> JAM 16.00 - 17.00</div>
             </div>
-            <div class="sesi-card" data-category="smp" style="border-top-color: var(--secondary);">
+            <div class="sesi-card smp-card" data-category="smp">
                 <h4>SMP (Grup B)</h4>
                 <div class="sesi-days">SELASA - KAMIS - SABTU</div>
                 <div class="sesi-time"><i class="far fa-clock"></i> JAM 16.00 - 17.00</div>
@@ -317,12 +355,12 @@
                     <p>Rp 150.000 / Bln</p>
                 </div>
             </div>
-            <p style="font-size: 0.8rem; opacity: 0.85;"><i class="fas fa-info-circle"></i> Setiap sesi dibatasi maksimal berisi 6 siswa.</p>
+            <p class="biaya-note"><i class="fas fa-info-circle"></i> Setiap sesi dibatasi maksimal berisi 6 siswa.</p>
         </div>
     </section>
 
     <!-- Section Galeri Foto Kegiatan & Suasana Belajar -->
-    <section class="section" id="galeri" style="background:#f1f5f9;">
+    <section class="section section-alt" id="galeri">
         <div class="section-title">
             <h2>Kegiatan Belajar</h2>
             <p>Lingkungan belajar yang ramah, berfokus pada pemahaman, dan didukung teknologi interaktif</p>
@@ -365,7 +403,7 @@
     </section>
 
     <!-- Section FAQ (Pertanyaan Umum) -->
-    <section class="section" id="faq" style="background:#f1f5f9;">
+    <section class="section section-alt" id="faq">
         <div class="section-title">
             <h2>Pertanyaan Sering Diajukan (FAQ)</h2>
             <p>Informasi seputar pendaftaran dan kegiatan bimbingan belajar</p>
@@ -403,9 +441,9 @@
 
     <footer>
         <p><strong>Dywan Learning Center</strong></p>
-        <p style="margin-top:4px;">Kp Kalikan RT 03 RW 05 Desa Kedungjati</p>
-        <p style="margin-top:4px;">Hubungi: 0888 6689 320 (Bravura)</p>
-        <p style="margin-top:15px; font-size:0.75rem;">&copy; 2026 Dywan Learning Center.</p>
+        <p class="footer-spaced">Kp Kalikan RT 03 RW 05 Desa Kedungjati</p>
+        <p class="footer-spaced">Hubungi: 0888 6689 320 (Bravura)</p>
+        <p class="footer-copyright">&copy; 2026 Dywan Learning Center.</p>
     </footer>
 
     <script>
@@ -414,13 +452,27 @@
             menu.classList.toggle('active');
         }
 
+        // Fungsi Dropdown Kurikulum
+        function toggleDropdown(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            document.getElementById('kurikulumDropdown').classList.toggle('open');
+        }
+        // Tutup dropdown jika klik di luar area dropdown
+        window.addEventListener('click', function(e) {
+            const dropdown = document.getElementById('kurikulumDropdown');
+            if (dropdown && !dropdown.contains(e.target)) {
+                dropdown.classList.remove('open');
+            }
+        });
+
         // Fungsi Filter Jadwal Interaktif
-        function filterJadwal(category) {
+        function filterJadwal(event, category) {
             const cards = document.querySelectorAll('.sesi-card');
             const buttons = document.querySelectorAll('.filter-btn');
 
             buttons.forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
+            event.currentTarget.classList.add('active');
 
             cards.forEach(card => {
                 if (category === 'all' || card.getAttribute('data-category') === category) {
@@ -439,13 +491,13 @@
 
         // Fungsi Scroll Back To Top
         const btnTop = document.getElementById('btnBackToTop');
-        window.onscroll = function() {
+        window.addEventListener('scroll', function() {
             if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
                 btnTop.classList.add('show');
             } else {
                 btnTop.classList.remove('show');
             }
-        };
+        });
 
         function scrollToTop() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
